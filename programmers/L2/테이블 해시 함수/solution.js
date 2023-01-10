@@ -5,7 +5,7 @@ function solution(data, col, row_begin, row_end) {
   for (let i = row_begin - 1; i < row_end; i++) {
     let sum = 0;
     data[i].forEach((element) => {
-      //mod 연산 i는 인덱스므로 S_rowbeginf를 만들어 주기 위해 +1
+      //mod 연산 i는 인덱스므로 S_rowbegin을 만들어 주기 위해 +1
       sum += element % (i + 1);
     });
     //연산을 마치고 S_i 배열에 삽입

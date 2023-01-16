@@ -1,10 +1,10 @@
 function solution(sticker) {
   // 1. 첫번째 스티커 부터 때어내기
   // 2. i번째 스티커 부터 때기
-  // DP배열에 i 번째 최대값이 나온다고 정하면
+  // DP배열에 i 번째 최대값이 나온다고 정한다.
   // DP[i] = max 에서 i번째 스티커를 때면 최댓값 max가 나온다는 뜻이다.
   // i 번째 스티커를 뜯었다는 i-1 번재 와 i+1 번째 스티커는 뜯지 못한다란 뜻이다.
-  // 그렇다면 DP[a] 는 DP[a-2] + stricker[a] 가 될것이다.
+  // 그렇다면 DP[a] 는 DP[a-2] + sticker[a]와 , DP[a-1] 중 최댓값이 될것이다.
   let answer = 0;
   const DP = Array.from({ length: sticker.length });
   const isBig = (a, b) => {

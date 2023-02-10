@@ -1,3 +1,65 @@
+function solution(n, road, k) {
+  const distanceTable = Array.from({ length: n + 1 }, (_) => {
+    return Infinity;
+  });
+
+  const sortedRoad = [];
+
+  road.forEach((table) => {
+    const [to, from, distance] = table;
+    if (to < from) sortedRoad.push([to, from, distance]);
+    if (from > to) sortedRoad.push([from, to, distance]);
+  });
+
+  distanceTable[0] = 0;
+
+  const visited = Array.from({ length: n + 1 }, (_) => {
+    return false;
+  });
+  visited[0] = true;
+
+  const findMinDistance = (array) => {
+    const res = [];
+    visited.forEach((bool, index) => {
+      if (!bool) res.push({ distance: array[index], to: index + 1 });
+    });
+
+    res.sort((a, b) => {
+      return a.distance - b.distance;
+    });
+
+    console.log(res);
+
+    return res[0];
+  };
+
+  //1번에서 방문
+  visited[1] = true;
+  sortedRoad.forEach(([to, from, dis]) => {
+    if (to === 1) {
+      if (dis < distanceTable[from]) distanceTable[from] = dis;
+    }
+  });
+
+  //계속 방문
+  while (visited.includes(false)) {
+    let { distance, to } = findMinDistance(distanceTable);
+    console.log(distance, to, distanceTable, visited);
+    visited[to] = true;
+    sortedRoad.forEach(([tTo, tFrom, tDis]) => {
+      if (tTo === to) {
+        if (distance + tDis < distanceTable[tFrom])
+          distanceTable[tFrom] = distance + tDis;
+      }
+    });
+  }
+
+  return distanceTable.reduce((acc, cur) => {
+    if (cur <= k) return acc + 1;
+    return acc;
+  }, 0);
+}
+
 console.log(
   solution(
     5,
